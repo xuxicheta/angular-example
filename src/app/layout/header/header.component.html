@@ -1,0 +1,22 @@
+<nav class="nav">
+  <div class="nav-header">
+    <div class="flex items-center lowercase">
+      <a
+        [routerLink]="['beer']"
+        class="nav-link"
+      >Beers</a>
+      <a
+        *ngIf="lvl1 | async as lvl1"
+        [routerLink]="lvl1.path"
+        class="nav-link"
+      ><span class="px-0.5">/</span>{{lvl1.text}}</a>
+    </div>
+
+    <div class="nav-items">
+      <a
+        [routerLink]="['beer', 'list']"
+        class="link"
+      >List</a>
+    </div>
+  </div>
+</nav>

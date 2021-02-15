@@ -1,0 +1,6 @@
+<app-beer-short
+  *ngFor="let beer of (beers | async)?.data; trackBy: trackBy"
+  [beer]="beer"
+  [routerLink]="['/', 'beer', 'details']"
+  [queryParams]="{ id: beer.id }"
+></app-beer-short>

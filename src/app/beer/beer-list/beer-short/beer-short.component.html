@@ -1,0 +1,22 @@
+<section class="flex">
+  <div class="pl-2 pr-6">
+    <img
+      class="h-12"
+      [src]="beer.image_url"
+      alt="beer image"
+    >
+  </div>
+
+  <div>
+    <div>
+      <small class="capitalize">name:</small>
+      <span class="pl-2">{{beer?.name}}</span>
+    </div>
+
+    <div>
+      <small class="capitalize">tagline:</small>
+      <span class="pl-2">{{beer?.tagline}}</span>
+    </div>
+  </div>
+
+</section>

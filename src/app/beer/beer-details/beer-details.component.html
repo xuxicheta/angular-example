@@ -1,0 +1,54 @@
+<section
+  *ngIf="beer | async as beer"
+  class="px-2 py-1 flex mt-2 container mx-auto"
+>
+  <div *ngIf="beer.loading">Loading...</div>
+  <div *ngIf="beer.error"> An error has occured</div>
+  <ng-container
+    *ngIf="beer.data as data"
+
+  >
+    <div class="border-r w-64">
+      <img
+        class="h-96 mx-auto"
+        [src]="data.image_url"
+        alt="beer image"
+      >
+    </div>
+
+    <div class="pl-6">
+      <div class="mt-1">
+        <h3>Name:</h3>
+        <span class="pl-2">{{data.name}}</span>
+      </div>
+
+      <div class="mt-1">
+        <h3>Tagline:</h3>
+        <span class="pl-2">{{data.tagline}}</span>
+      </div>
+
+      <div class="mt-1">
+        <h3>Description:</h3>
+        <span class="pl-2">{{data.description}}</span>
+      </div>
+
+      <div
+        *ngIf="data.ingredients as ingredients"
+        class="mt-3"
+      >
+        <strong>Ingridients:</strong>
+
+        <h2 class="mt-1">Hops:</h2>
+        <div *ngFor="let hops of ingredients.hops">
+          <span class="pl-4">{{hops.name}}</span>
+        </div>
+
+        <h2 class="mt-1">Malt:</h2>
+        <div *ngFor="let malt of ingredients.malt">
+          <span class="pl-4">{{malt.name}}</span>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+</section>
