@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BeerItem } from './beer.interface';
-import { ObservableWrapper } from '../shared/http/response-wrapper';
-import { HttpGet } from '../shared/http/http-get';
-import { firstItem } from '../shared/http/first-item';
+import { ObservableWrapper, responseWrapper } from '../shared/http/response-wrapper';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,17 +12,20 @@ export class BeerApiService {
   private readonly apiUrl = 'https://api.punkapi.com/v2/beers';
 
   constructor(
-    private httpGet: HttpGet,
+    private http: HttpClient,
   ) {
   }
 
   fetch(): ObservableWrapper<BeerItem[]> {
-    return this.httpGet.get<BeerItem[]>(this.apiUrl);
+    return this.http.get<BeerItem[]>(this.apiUrl).pipe(
+      responseWrapper(),
+    );
   }
 
   fetchById(id: number): ObservableWrapper<BeerItem> {
-    return this.httpGet.get<BeerItem[]>(`${this.apiUrl}/${id}`).pipe(
-      firstItem(),
+    return this.http.get<BeerItem[]>(`${this.apiUrl}/${id}`).pipe(
+      map(resp => resp[0]),
+      responseWrapper(),
     );
   }
 }

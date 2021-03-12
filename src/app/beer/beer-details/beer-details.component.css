@@ -1,8 +1,1 @@
-:host {
-  @apply border-b block;
-}
 
-
-h3 {
-  @apply font-semibold
-}

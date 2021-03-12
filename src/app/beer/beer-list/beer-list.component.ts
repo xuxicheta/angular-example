@@ -5,7 +5,8 @@ import { BeerItem } from '../beer.interface';
 @Component({
   selector: 'app-beer-list',
   templateUrl: './beer-list.component.html',
-  styleUrls: ['./beer-list.component.css']
+  styleUrls: ['./beer-list.component.css'],
+  host: { class: 'container block mx-auto' },
 })
 export class BeerListComponent {
   beers = this.beerApiService.fetch();

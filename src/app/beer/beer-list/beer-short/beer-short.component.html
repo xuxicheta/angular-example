@@ -8,15 +8,18 @@
   </div>
 
   <div>
-    <div>
-      <small class="capitalize">name:</small>
-      <span class="pl-2">{{beer?.name}}</span>
-    </div>
-
-    <div>
-      <small class="capitalize">tagline:</small>
-      <span class="pl-2">{{beer?.tagline}}</span>
-    </div>
+    <ng-container *ngTemplateOutlet="record; context: { title: 'name', value: beer.name }"></ng-container>
+    <ng-container *ngTemplateOutlet="record; context: { title: 'tagline', value: beer?.tagline }"></ng-container>
   </div>
-
 </section>
+
+<ng-template
+  #record
+  let-title="title"
+  let-value="value"
+>
+  <div>
+    <small class="capitalize">{{title}}:</small>
+    <span class="pl-2">{{value}}</span>
+  </div>
+</ng-template>

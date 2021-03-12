@@ -17,26 +17,15 @@
     </div>
 
     <div class="pl-6">
-      <div class="mt-1">
-        <h3>Name:</h3>
-        <span class="pl-2">{{data.name}}</span>
-      </div>
-
-      <div class="mt-1">
-        <h3>Tagline:</h3>
-        <span class="pl-2">{{data.tagline}}</span>
-      </div>
-
-      <div class="mt-1">
-        <h3>Description:</h3>
-        <span class="pl-2">{{data.description}}</span>
-      </div>
+      <ng-container *ngTemplateOutlet="record; context: { title: 'Name', value: data.name }"></ng-container>
+      <ng-container *ngTemplateOutlet="record; context: { title: 'Description', value: data.description }"></ng-container>
+      <ng-container *ngTemplateOutlet="record; context: { title: 'Tagline', value: data.tagline }"></ng-container>
 
       <div
         *ngIf="data.ingredients as ingredients"
         class="mt-3"
       >
-        <strong>Ingridients:</strong>
+        <strong>Ingredients:</strong>
 
         <h2 class="mt-1">Hops:</h2>
         <div *ngFor="let hops of ingredients.hops">
@@ -52,3 +41,14 @@
 
   </ng-container>
 </section>
+
+<ng-template
+  #record
+  let-title="title"
+  let-value="value"
+>
+  <div class="mt-1">
+    <h3 class="font-semibold">{{title}}:</h3>
+    <span class="pl-2">{{value}}</span>
+  </div>
+</ng-template>

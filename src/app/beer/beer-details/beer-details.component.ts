@@ -9,7 +9,8 @@ import { HeaderService } from '../../layout/header/header.service';
 @Component({
   selector: 'app-beer-details',
   templateUrl: './beer-details.component.html',
-  styleUrls: ['./beer-details.component.css']
+  styleUrls: ['./beer-details.component.css'],
+  host: { class: 'border-b block'},
 })
 export class BeerDetailsComponent implements OnDestroy {
   beer = this.fetchBeer();
@@ -33,14 +34,12 @@ export class BeerDetailsComponent implements OnDestroy {
   }
 
   private setLvl1(beer: ResponseWrapper<BeerItem>): void {
-    if (!beer?.data) {
-      return;
+    if (beer?.data) {
+      this.headerService.setLvl1({
+        path: ['/', 'beer', 'details', `${beer.data.id}`],
+        text: beer.data.name,
+      });
     }
-
-    this.headerService.setLvl1({
-      path: ['/', 'beer', 'details', `${beer.data.id}`],
-      text: beer.data.name,
-    });
   }
 
 }
