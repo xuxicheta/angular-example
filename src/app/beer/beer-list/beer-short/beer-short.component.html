@@ -8,13 +8,13 @@
   </div>
 
   <div>
-    <ng-container *ngTemplateOutlet="record; context: { title: 'name', value: beer.name }"></ng-container>
-    <ng-container *ngTemplateOutlet="record; context: { title: 'tagline', value: beer?.tagline }"></ng-container>
+    <ng-container *ngTemplateOutlet="fragment; context: { title: 'name', value: beer.name }"></ng-container>
+    <ng-container *ngTemplateOutlet="fragment; context: { title: 'tagline', value: beer?.tagline }"></ng-container>
   </div>
 </section>
 
 <ng-template
-  #record
+  #fragment
   let-title="title"
   let-value="value"
 >

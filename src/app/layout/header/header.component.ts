@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderService } from './header.service';
+import { HeaderLinkService } from './header-link.service';
 
 
 @Component({
@@ -8,10 +8,10 @@ import { HeaderService } from './header.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  lvl1 = this.headerService.selectLvl1();
+  headerLink$ = this.headerLinkService.select();
 
   constructor(
-    private headerService: HeaderService,
+    private headerLinkService: HeaderLinkService,
   ) {
   }
 }

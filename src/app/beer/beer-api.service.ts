@@ -3,6 +3,7 @@ import { BeerItem } from './beer.interface';
 import { ObservableWrapper, responseWrapper } from '../shared/http/response-wrapper';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Injectable({
@@ -22,7 +23,15 @@ export class BeerApiService {
     );
   }
 
-  fetchById(id: number): ObservableWrapper<BeerItem> {
+  fetchById(id: number|null): ObservableWrapper<BeerItem> {
+    if (!id) {
+      return of({
+        loading: false,
+        error: new Error('No id provided'),
+        data: null,
+      });
+    }
+
     return this.http.get<BeerItem[]>(`${this.apiUrl}/${id}`).pipe(
       map(resp => resp[0]),
       responseWrapper(),

@@ -17,9 +17,9 @@
     </div>
 
     <div class="pl-6">
-      <ng-container *ngTemplateOutlet="record; context: { title: 'Name', value: data.name }"></ng-container>
-      <ng-container *ngTemplateOutlet="record; context: { title: 'Description', value: data.description }"></ng-container>
-      <ng-container *ngTemplateOutlet="record; context: { title: 'Tagline', value: data.tagline }"></ng-container>
+      <ng-container *ngTemplateOutlet="fragment; context: { title: 'Name', value: data.name }"></ng-container>
+      <ng-container *ngTemplateOutlet="fragment; context: { title: 'Description', value: data.description }"></ng-container>
+      <ng-container *ngTemplateOutlet="fragment; context: { title: 'Tagline', value: data.tagline }"></ng-container>
 
       <div
         *ngIf="data.ingredients as ingredients"
@@ -43,7 +43,7 @@
 </section>
 
 <ng-template
-  #record
+  #fragment
   let-title="title"
   let-value="value"
 >

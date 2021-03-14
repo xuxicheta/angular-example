@@ -6,11 +6,11 @@
         class="text-gray-800 text-xl font-bold md:text-2xl hover:text-blue-800 transition transition-colors"
       >Beers</a>
       <a
-        *ngIf="lvl1 | async as lvl1"
-        [routerLink]="lvl1.path"
+        *ngIf="headerLink$ | async as headerLink"
+        [routerLink]="headerLink.path"
         class="text-gray-800 text-xl font-bold md:text-2xl hover:text-blue-800 transition transition-colors"
       >
-        <span class="px-0.5">/</span>{{lvl1.text}}
+        <span class="px-0.5">/</span>{{headerLink.text}}
       </a>
     </div>
 

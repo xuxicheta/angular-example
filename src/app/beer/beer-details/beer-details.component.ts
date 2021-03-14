@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { BeerApiService } from '../beer-api.service';
 import { ObservableWrapper, ResponseWrapper } from '../../shared/http/response-wrapper';
 import { BeerItem } from '../beer.interface';
-import { HeaderService } from '../../layout/header/header.service';
+import { HeaderLinkService } from '../../layout/header/header-link.service';
 
 @Component({
   selector: 'app-beer-details',
@@ -13,29 +13,33 @@ import { HeaderService } from '../../layout/header/header.service';
   host: { class: 'border-b block'},
 })
 export class BeerDetailsComponent implements OnDestroy {
+  id$ = this.route.queryParamMap.pipe(
+    map(paramMap => +paramMap.get('id'))
+  );
   beer = this.fetchBeer();
 
   constructor(
     private route: ActivatedRoute,
     private beerApiService: BeerApiService,
-    private headerService: HeaderService,
+    private headerService: HeaderLinkService,
   ) {
   }
 
   ngOnDestroy(): void {
-    this.headerService.setLvl1(null);
+    this.headerService.set(null);
   }
 
   fetchBeer(): ObservableWrapper<BeerItem> {
-    return this.route.queryParamMap.pipe(
-      switchMap(paramMap => this.beerApiService.fetchById(+paramMap.get('id'))),
-      tap(resp => this.setLvl1(resp))
+    return this.id$.pipe(
+      filter(Boolean),
+      switchMap((id: number) => this.beerApiService.fetchById(id)),
+      tap(resp => this.setHeaderLink(resp))
     );
   }
 
-  private setLvl1(beer: ResponseWrapper<BeerItem>): void {
+  private setHeaderLink(beer: ResponseWrapper<BeerItem>): void {
     if (beer?.data) {
-      this.headerService.setLvl1({
+      this.headerService.set({
         path: ['/', 'beer', 'details', `${beer.data.id}`],
         text: beer.data.name,
       });
